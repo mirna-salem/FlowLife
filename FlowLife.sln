@@ -1,0 +1,27 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.10.35013.160
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FlowLife", "FlowLife.csproj", "{AE54415F-5A4F-414F-A779-DA2E1F8E5AAE}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{AE54415F-5A4F-414F-A779-DA2E1F8E5AAE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AE54415F-5A4F-414F-A779-DA2E1F8E5AAE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AE54415F-5A4F-414F-A779-DA2E1F8E5AAE}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
+		{AE54415F-5A4F-414F-A779-DA2E1F8E5AAE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AE54415F-5A4F-414F-A779-DA2E1F8E5AAE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AE54415F-5A4F-414F-A779-DA2E1F8E5AAE}.Release|Any CPU.Deploy.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {DC9B653C-7A18-4D65-B955-81C51220204A}
+	EndGlobalSection
+EndGlobal

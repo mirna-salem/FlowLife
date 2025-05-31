@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="FlowLife.Views.DashboardPage"
+             Title="Dashboard">
+
+    <ScrollView>
+        <VerticalStackLayout Spacing="25" Padding="30,0" VerticalOptions="Center">
+
+            <Label 
+                Text="Welcome to FlowLife"
+                SemanticProperties.HeadingLevel="Level1"
+                FontSize="32"
+                HorizontalOptions="Center" />
+
+            <Frame BorderColor="Gray" Padding="20" Margin="0,20">
+                <VerticalStackLayout Spacing="10">
+                    <Label Text="Budget Overview" FontSize="24" HorizontalOptions="Center"/>
+                    <Grid ColumnDefinitions="*,*" RowDefinitions="Auto,Auto,Auto" ColumnSpacing="10" RowSpacing="10">
+                        <Label Text="Total Budget:" Grid.Row="0" Grid.Column="0"/>
+                        <Label Text="{Binding TotalBudget, StringFormat='{0:C}'}" Grid.Row="0" Grid.Column="1"/>
+                        
+                        <Label Text="Spent Amount:" Grid.Row="1" Grid.Column="0"/>
+                        <Label Text="{Binding SpentAmount, StringFormat='{0:C}'}" Grid.Row="1" Grid.Column="1"/>
+                        
+                        <Label Text="Remaining:" Grid.Row="2" Grid.Column="0"/>
+                        <Label Text="{Binding RemainingAmount, StringFormat='{0:C}'}" Grid.Row="2" Grid.Column="1"/>
+                    </Grid>
+
+                    <CollectionView ItemsSource="{Binding TopCategories}" Margin="0,10">
+                        <CollectionView.Header>
+                            <Label Text="Categories" FontSize="18" Margin="0,10"/>
+                        </CollectionView.Header>
+                        <CollectionView.ItemTemplate>
+                            <DataTemplate>
+                                <Grid ColumnDefinitions="*,Auto" Padding="0,5">
+                                    <Label Text="{Binding Category}"/>
+                                    <Label Grid.Column="1" Text="{Binding Amount, StringFormat='{0:C}'}"/>
+                                </Grid>
+                            </DataTemplate>
+                        </CollectionView.ItemTemplate>
+                    </CollectionView>
+                    
+                    <Button 
+                        Text="Edit Budget"
+                        SemanticProperties.Hint="Edit your budget settings"
+                        Clicked="OnEditBudgetClicked"
+                        HorizontalOptions="Center" />
+                </VerticalStackLayout>
+            </Frame>
+
+        </VerticalStackLayout>
+    </ScrollView>
+</ContentPage> 
