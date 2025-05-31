@@ -1,7 +1,12 @@
+using SQLite;
+
 namespace FlowLife.Models
 {
     public class HabitItem
     {
+        [PrimaryKey, AutoIncrement]
+        public int Id { get; set; }
+        
         private string _name = string.Empty;
 
         public string Name 
@@ -16,5 +21,7 @@ namespace FlowLife.Models
         {
             Name = name;
         }
+
+        public HabitItem() { } // Required for SQLite
     }
 } 

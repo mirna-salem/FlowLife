@@ -1,11 +1,15 @@
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
+using SQLite;
 
 namespace FlowLife.Models
 {
     public class BudgetSummary : INotifyPropertyChanged
     {
+        [PrimaryKey, AutoIncrement]
+        public int Id { get; set; }
+
         private decimal _totalBudget;
         private decimal _spentAmount;
         private decimal _remainingAmount;
@@ -50,6 +54,7 @@ namespace FlowLife.Models
             }
         }
 
+        [Ignore]
         public ObservableCollection<CategoryExpense> TopCategories 
         { 
             get => _topCategories;
@@ -78,6 +83,11 @@ namespace FlowLife.Models
 
     public class CategoryExpense : INotifyPropertyChanged
     {
+        [PrimaryKey, AutoIncrement]
+        public int Id { get; set; }
+        
+        public int BudgetId { get; set; }
+
         private string _category = string.Empty;
         private decimal _amount;
         private string _amountText = string.Empty;
@@ -114,6 +124,7 @@ namespace FlowLife.Models
             }
         }
 
+        [Ignore]
         public string AmountText
         {
             get => _amountText;
@@ -131,6 +142,13 @@ namespace FlowLife.Models
                     _isEditing = false;
                 }
             }
+        }
+
+        public CategoryExpense()
+        {
+            Category = string.Empty;
+            Amount = 0;
+            AmountText = "0.00";
         }
 
         public CategoryExpense(string category, decimal amount = 0)

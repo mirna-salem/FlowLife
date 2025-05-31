@@ -1,6 +1,6 @@
 using FlowLife.Models;
+using FlowLife.ViewModels;
 using System.Runtime.Versioning;
-using System.ComponentModel;
 
 namespace FlowLife.Views;
 
@@ -10,20 +10,20 @@ namespace FlowLife.Views;
 [SupportedOSPlatform("windows")]
 public partial class DashboardPage : ContentPage
 {
-    private BudgetSummary _budget;
+    private readonly DashboardViewModel _viewModel;
 
     public DashboardPage()
     {
         InitializeComponent();
-        _budget = new BudgetSummary();
-        BindingContext = _budget;
+        _viewModel = new DashboardViewModel();
+        BindingContext = _viewModel;
     }
 
     private async void OnEditBudgetClicked(object sender, EventArgs e)
     {
         try
         {
-            var budgetEditPage = new BudgetEditPage(_budget);
+            var budgetEditPage = new BudgetEditPage(_viewModel.BudgetSummary);
             await Navigation.PushAsync(budgetEditPage);
         }
         catch (Exception ex)
@@ -33,20 +33,41 @@ public partial class DashboardPage : ContentPage
         }
     }
 
-    public void RefreshData()
+    private async void OnRefreshClicked(object sender, EventArgs e)
     {
-        // Re-set the binding context to force a UI refresh
-        var currentBudget = BindingContext as BudgetSummary;
-        if (currentBudget != null)
+        try
         {
-            BindingContext = null;
-            BindingContext = currentBudget;
+            if (sender is Button button)
+            {
+                // Disable button and show loading state
+                button.IsEnabled = false;
+                var originalText = button.Text;
+                button.Text = "Refreshing...";
+
+                await RefreshDataAsync();
+
+                // Restore button state
+                button.Text = originalText;
+                button.IsEnabled = true;
+
+                await DisplayAlert("Success", "Data refreshed successfully!", "OK");
+            }
+        }
+        catch (Exception ex)
+        {
+            System.Diagnostics.Debug.WriteLine($"Refresh error: {ex}");
+            await DisplayAlert("Error", "Could not refresh data.", "OK");
         }
     }
 
-    protected override void OnAppearing()
+    public async Task RefreshDataAsync()
+    {
+        await _viewModel.RefreshDataAsync();
+    }
+
+    protected override async void OnAppearing()
     {
         base.OnAppearing();
-        RefreshData();
+        await RefreshDataAsync();
     }
 } 

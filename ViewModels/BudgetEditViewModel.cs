@@ -3,6 +3,7 @@ using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using System.Windows.Input;
 using FlowLife.Models;
+using FlowLife.Services;
 
 namespace FlowLife.ViewModels
 {
@@ -14,6 +15,7 @@ namespace FlowLife.ViewModels
         private string _totalBudgetText = string.Empty;
         private bool _isEditing;
         private readonly INavigation _navigation;
+        private readonly DatabaseService _databaseService;
 
         public string TotalBudgetText
         {
@@ -73,6 +75,7 @@ namespace FlowLife.ViewModels
         {
             _originalBudget = budget ?? throw new ArgumentNullException(nameof(budget));
             _navigation = navigation ?? throw new ArgumentNullException(nameof(navigation));
+            _databaseService = new DatabaseService();
             
             // Initialize with default values
             _categories = new ObservableCollection<CategoryExpense>();
@@ -144,6 +147,9 @@ namespace FlowLife.ViewModels
                 // Update spent and remaining amounts
                 _originalBudget.SpentAmount = totalSpent;
                 _originalBudget.RemainingAmount = TotalBudget - totalSpent;
+
+                // Save to database
+                await _databaseService.SaveBudgetSummaryAsync(_originalBudget);
 
                 // Show success message
                 if (Application.Current != null && Application.Current.MainPage != null)

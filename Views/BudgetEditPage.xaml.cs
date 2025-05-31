@@ -34,7 +34,7 @@ public partial class BudgetEditPage : ContentPage
         if (Application.Current?.MainPage is NavigationPage navigationPage)
         {
             var dashboard = navigationPage.RootPage as DashboardPage;
-            dashboard?.RefreshData();
+            _ = dashboard?.RefreshDataAsync();
         }
     }
 } 
